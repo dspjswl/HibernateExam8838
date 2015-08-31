@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.hand.StoreEntity" table="store" schema="" catalog="sakila">
+        <id name="storeId">
+            <column name="store_id" sql-type="tinyint unsigned" not-null="true" default="1"/>
+        </id>
+        <property name="lastUpdate">
+            <column name="last_update" sql-type="timestamp" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -23,6 +23,7 @@ public class MainHibernate {
 
     public static void main(String[] args) {
         Configuration config = new Configuration().configure("ApplicationContext.xml");
+        config.setInterceptor(new MyInterceptor());
         ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(config.getProperties()).buildServiceRegistry();
         SessionFactory sessionFactory = config.buildSessionFactory(serviceRegistry);
         Session session = sessionFactory.openSession();
@@ -54,7 +55,7 @@ public class MainHibernate {
         String addressname = address.getAddress();
 
         Date date = new Date();
-
+        Integer id =0;
         try {
             CustomerEntity newcustomer = new CustomerEntity();
             newcustomer.setStoreId((byte) 1);
@@ -63,7 +64,7 @@ public class MainHibernate {
             newcustomer.setEmail(email);
             newcustomer.setAddressId(add_id);
             newcustomer.setCreateDate(date);
-            session.save(newcustomer);
+            id=(Integer)session.save(newcustomer);
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -78,9 +79,8 @@ public class MainHibernate {
             lastrecordid=ce.getCustomerId();
             lastrecordcreatedate=ce.getCreateDate().toString();
         }
-        System.out.println("Before Save");
         System.out.println("已经保存的数据如下:");
-        System.out.println("ID:"+lastrecordid);
+        System.out.println("ID:"+id);
         System.out.println("FirstName:"+first_name);
         System.out.println("LastName:"+last_name);
         System.out.println("Email:"+email);
